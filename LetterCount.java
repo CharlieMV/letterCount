@@ -44,14 +44,10 @@ public class LetterCount {
 			while (newReader.hasNextLine()) {
 				String data = newReader.nextLine();
 				while (data.length() != 0) {
-					search = 0;
-					found = false;
-					while (found == false) {
-						if (data.charAt(0) == charList[search]){
-							charCount[search] ++;
-							found = true;
+					for (int i = 0; i < 26; i++) {
+						if (data.charAt(0) == charList[i]) {
+							charCount[i] ++;
 						}
-						search++;
 					}
 					data = data.substring(1, data.length());
 				}
@@ -62,9 +58,9 @@ public class LetterCount {
 			System.out.println("FileNotFound");
 			e.printStackTrace();
 		}
-		for (int soup = 0; soup <= 26 ; soup++) {
-			System.out.printf("'%-7s'", charList[soup]);
-			System.out.print(charCount[soup] + " ");
+		for (int soup = 0; soup < 26 ; soup++) {
+			System.out.printf("%-7s", charList[soup]);
+			System.out.println(charCount[soup]);
 		}
 	}
 	
