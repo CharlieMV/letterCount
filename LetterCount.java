@@ -5,8 +5,10 @@
  *	@author Charles Chang	
  *	@since September 14
  */
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
 
- 
 public class LetterCount {
 	
 	// Fields go here, all must be private
@@ -30,28 +32,39 @@ public class LetterCount {
 	 *	- prints the histogram of the letter count
 	 */
 	public void run(String[] args) {
-		int[] anArray;
-		charCount = new int[36];
-		char[] charList = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+		int[] charCount;
+		charCount = new int[26];
+		char[] charList = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 		boolean found = false;
 		int search = 0;
 		String fileName = args[0];
-		File newFile = new File("cities.txt");
-		Scanner newReader = new Scanner(newFile);
-		while (newReader.hasNextLine()) {
-			String data = newReader.nextLine();
-			while (data.length() != 0) {
-				search = 0;
-				found = false;
-				while (found == false) {
-					if (charAt() == charList[search]){
-						charCount[search] ++;
-						found = true;
+		try {
+			File newFile = new File("panama.txt");
+			Scanner newReader = new Scanner(newFile);
+			while (newReader.hasNextLine()) {
+				String data = newReader.nextLine();
+				while (data.length() != 0) {
+					search = 0;
+					found = false;
+					while (found == false) {
+						if (data.charAt(0) == charList[search]){
+							charCount[search] ++;
+							found = true;
+						}
+						search++;
 					}
-					search++;
+					data = data.substring(1, data.length());
 				}
-				data = data.substring(1, data.length());
 			}
+			newReader.close();
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("FileNotFound");
+			e.printStackTrace();
+		}
+		for (int soup = 0; soup <= 26 ; soup++) {
+			System.out.printf("'%-7s'", charList[soup]);
+			System.out.print(charCount[soup] + " ");
 		}
 	}
 	
